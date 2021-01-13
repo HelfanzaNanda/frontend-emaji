@@ -1,44 +1,42 @@
 <template>
     <div class="flex flex-col md:flex-row items-center md:items-start md:justify-between">
-        <div v-if="loading" class="absolute left-1/2">
-            <div class="relative -left-1/2">
-                <svg class="text-center w-1/2 h-1/2 md:w-full md:h-full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"> <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#6a6a6a" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round"> <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform> </circle> <circle cx="50" cy="50" r="23" stroke-width="8" stroke="#979797" stroke-dasharray="36.12831551628262 36.12831551628262" stroke-dashoffset="36.12831551628262" fill="none" stroke-linecap="round"> <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;-360 50 50"></animateTransform> </circle> </svg>
+        
+        <div class="shadow-md mx-5 justify-center py-5 md:mb-0 md:p-4 md:mr-4 rounded w-full md:w-1/3 divide-y-2 divide-gray-600 divide-solid">
+            <div class="p-4">
+                <div class="font-semibold">Tambah User</div>
+                <form @submit.prevent="store" method="post" class="mt-3" autocomplete="false">
+                    <div class="mb-2">
+                        <label for="name" class="block mb-1">Nama</label>
+                        <input type="text" v-model="form.name" id="name" class="bg-gray-400 w-full py-1 px-3 focus:outline-none hover:bg-true-gray-300 rounded-lg" />
+                        <span class="text-rose-600 font-semibold"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="email" class="block mb-1">Email</label>
+                        <input type="email" v-model="form.email" id="email" class="bg-gray-400 w-full py-1 px-3 focus:outline-none hover:bg-true-gray-300 rounded-lg" />
+                        <span class="text-rose-600 font-semibold"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="role" class="block mb-1">Role</label>
+                        <select id="role" v-model="form.role" class="bg-gray-400 w-full py-1 px-3 focus:outline-none hover:bg-true-gray-300 rounded-lg" >
+                            <option selected disabled>Pilih Role</option>
+                            <option value="pengawas">Pengawas</option>
+                            <option value="penguji">Penguji</option>
+                        </select>
+                        <span class="text-rose-600 font-semibold"></span>
+                    </div>
+                    <div class="flex justify-self-auto">
+                        <button class="focus:outline-none capitalize w-full mr-2 bg-gray-500 hover:bg-gray-600 py-1 px-2 text-white text-sm rounded-md" > 
+                            {{ setTextButton }} 
+                        </button>
+                        <button  class="focus:outline-none capitalize w-full bg-gray-500 hover:bg-gray-600 py-1 px-2 text-white text-sm rounded-md"
+                        @click.prevent="resetForm()">
+                            clear
+                        </button>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="shadow-md mb-5 md:mb-0 p-4 mr-4 rounded w-1/2 md:w-1/4 divide-y-2 divide-gray-600 divide-solid" >
-            <div class="font-semibold">Tambah User</div>
-            <form @submit.prevent="store" method="post" class="mt-3" autocomplete="false">
-                <div class="mb-2">
-                    <label for="name" class="block mb-1">Nama</label>
-                    <input type="text" v-model="form.name" id="name" class="bg-gray-400 w-full py-1 px-3 focus:outline-none hover:bg-true-gray-300 rounded-lg" />
-                    <span class="text-rose-600 font-semibold"></span>
-                </div>
-
-                <div class="mb-2">
-                    <label for="email" class="block mb-1">Email</label>
-                    <input type="email" v-model="form.email" id="email" class="bg-gray-400 w-full py-1 px-3 focus:outline-none hover:bg-true-gray-300 rounded-lg" />
-                    <span class="text-rose-600 font-semibold"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label for="role" class="block mb-1">Role</label>
-                    <select id="role" v-model="form.role" class="bg-gray-400 w-full py-1 px-3 focus:outline-none hover:bg-true-gray-300 rounded-lg" >
-                        <option selected disabled>Pilih Role</option>
-                        <option value="pengawas">Pengawas</option>
-                        <option value="penguji">Penguji</option>
-                    </select>
-                    <span class="text-rose-600 font-semibold"></span>
-                </div>
-                <div class="flex justify-self-auto">
-                    <button class="focus:outline-none capitalize w-full mr-2 bg-gray-500 hover:bg-gray-600 py-1 px-2 text-white text-sm rounded-md" > 
-                        {{ setTextButton }} 
-                    </button>
-                    <button  class="focus:outline-none capitalize w-full bg-gray-500 hover:bg-gray-600 py-1 px-2 text-white text-sm rounded-md"
-                    @click.prevent="resetForm()">
-                         clear
-                    </button>
-                </div>
-            </form>
         </div>
 
         <div class="p-4 w-full md:shadow-md md:text-center">
@@ -99,6 +97,9 @@
                         </a>
                     </div>
             </div>
+        </div>
+        <div v-if="loading" class="fixed top-1/2 md:left-1/2">
+            <svg class="text-center w-1/2 h-1/2 md:w-full md:h-full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"> <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#6a6a6a" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round"> <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform> </circle> <circle cx="50" cy="50" r="23" stroke-width="8" stroke="#979797" stroke-dasharray="36.12831551628262 36.12831551628262" stroke-dashoffset="36.12831551628262" fill="none" stroke-linecap="round"> <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;-360 50 50"></animateTransform> </circle> </svg>
         </div>
     </div>
 </template>

@@ -1,13 +1,15 @@
 <template>
-    <div id="app" class="h-screen bg-gray-200 overflow-hidden flex flex-col">
+    <div id="app" class="md:h-screen bg-gray-200 flex flex-col">
         <navbar/>
-        <div class="md:flex h-full bg-gray-200">
+        <div class="md:flex h-full">
             <sidebar/>
+            <bottom-nav/>
             <div class="p-4 w-full">
                 <div class="container"><router-view></router-view></div>
             </div>
+            
         </div>
-        <bottom-nav/>
+        
     </div>
 </template>
 
